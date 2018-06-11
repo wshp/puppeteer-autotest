@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const path = require('path');
 const Config = require('../config/config');
 
 class Tools {
@@ -88,11 +89,15 @@ class Tools {
 
         // 打开流程入口Url.
         if (!isRestful) {
-            await page.goto(link, { timeout: 3000 }).then(() => { }, () => {
+            await page.goto(link, {
+                timeout: 3000
+            }).then(() => {}, () => {
                 this.log('跳转页面:' + link + '超时', 'warining');
             });
 
-            await page.waitForNavigation({ timeout: 3000 }).then(() => {
+            await page.waitForNavigation({
+                timeout: 3000
+            }).then(() => {
 
             }, () => {
                 this.log(`加载页面资源超时: ${link}`, 'warning');
@@ -167,6 +172,22 @@ class Tools {
             index++;
             item.stepCallback(page, () => this.runStep(stepArr, index, procedure, page));
         });
+    }
+
+    /**
+     * @desc 递归创建目录 同步方法  
+     * @param {string} dirname 
+     */
+    static mkdirsSync(dirname) {
+        //console.log(dirname);  
+        if (fs.existsSync(dirname)) {
+            return true;
+        } else {
+            if (Tools.mkdirsSync(path.dirname(dirname))) {
+                fs.mkdirSync(dirname);
+                return true;
+            }
+        }
     }
 }
 module.exports = Tools;

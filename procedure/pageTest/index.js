@@ -13,7 +13,7 @@ const replyComment = require('./steps/replyComment');
 const logPath = path.resolve(path.dirname(path.dirname(__dirname)) + path.sep + 'logs' + path.sep + moment().format('YYYYMMDDHHmmss'));
 // 若文件夹不存在创建日志文件夹.
 if (!fs.existsSync(logPath)) {
-    fs.mkdirSync(logPath);
+    Tools.mkdirsSync(logPath);
 }
 process.env.logPath = logPath;
 
