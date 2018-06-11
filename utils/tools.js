@@ -47,7 +47,7 @@ class Tools {
 
             case 'warning':
                 updatedContent = '警告:' + content;
-                console.log(chalk.red(`\t${chalk.bold(updatedContent)}\t`));
+                console.log(chalk.yellow(`\t${chalk.bold(updatedContent)}\t`));
                 break;
 
             case 'error':
